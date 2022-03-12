@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # read data
-path = 'data.txt'
+path = './data.txt'
 data = pd.read_csv(path, header=None, names=['Population', 'Profit'])
 
 # show data details
