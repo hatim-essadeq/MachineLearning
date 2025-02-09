@@ -16,11 +16,11 @@ class Neural_Network(object):
 
     def forward(self, X):
         #forward propagation through our network
-        self.z = np.dot(X, self.W1) # dot product of X (input) and first set of 3x2 weights
-        self.z2 = self.sigmoid(self.z) # activation function
-        self.z3 = np.dot(self.z2, self.W2) # dot product of hidden layer (z2) and second set of 3x1 weights
-        o = self.sigmoid(self.z3) # final activation function
-        return o
+        self.z1 = np.dot(X, self.W1) # dot product of X (input) and first set of 3x2 weights
+        self.a1 = self.sigmoid(self.z1) # activation function
+        self.z2 = np.dot(self.a1, self.W2) # dot product of hidden layer (z2) and second set of 3x1 weights
+        a2_final_out = self.sigmoid(self.z2) # final activation function
+        return a2_final_out
 
     def sigmoid(self, s):
         # activation function
@@ -36,10 +36,10 @@ class Neural_Network(object):
         self.o_delta = self.o_error*self.sigmoidPrime(o) # applying derivative of sigmoid to error
 
         self.z2_error = self.o_delta.dot(self.W2.T) # z2 error: how much our hidden layer weights contributed to output error
-        self.z2_delta = self.z2_error*self.sigmoidPrime(self.z2) # applying derivative of sigmoid to z2 error
+        self.z2_delta = self.z2_error*self.sigmoidPrime(self.a1) # applying derivative of sigmoid to z2 error
 
         self.W1 += X.T.dot(self.z2_delta) # adjusting first set (input --> hidden) weights
-        self.W2 += self.z2.T.dot(self.o_delta) # adjusting second set (hidden --> output) weights
+        self.W2 += self.a1.T.dot(self.o_delta) # adjusting second set (hidden --> output) weights
 
     def train(self, X, y):
         o = self.forward(X)

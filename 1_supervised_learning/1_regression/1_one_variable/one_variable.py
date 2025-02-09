@@ -23,7 +23,8 @@ print('new data = \n', data.head(10))
 print('**************************************')
 
 # separate X (training data) from y (target variable)
-cols = data.shape[3]
+print(f'data.shape >> {data.shape}')
+cols = data.shape[1]
 X = data.iloc[:, 0:cols - 1]
 y = data.iloc[:, cols - 1:cols]
 
